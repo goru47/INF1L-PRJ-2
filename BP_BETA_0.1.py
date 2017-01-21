@@ -1,4 +1,6 @@
 import pygame
+import sys
+from pygame.locals import *
 import random
 
 pygame.init()
@@ -46,13 +48,13 @@ class button:
         self.by = bypos
     def draw(self):
 '''
-
+"""
 def obj_(len):
      pygame.image.load('bootje.png')
     if len == 1:
-        pygame
+        pygam
 
-    pygame.draw.circle(gamedisplay,black,(ox,oy),10,0)
+    pygame.draw.circle(gamedisplay,black,(ox,oy),10,0)"""
 
 def yo_movement(oy,ox):
     for event in pygame.event.get():
@@ -77,7 +79,7 @@ def board_gen():
     x = display_width/5
     y = 0
     gamedisplay.fill((black))
-    obj_()
+    # obj_()
     while y <= display_height:
         while x < (display_width/5)*4:
             if t % 2 == 0:
@@ -107,7 +109,7 @@ def main_menu():
         pygame.display.update()
         while True:
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN or event.type == MOUSEBUTTONDOWN:
                         board_gen()
 
 
@@ -117,8 +119,9 @@ def gameloop():
 
     while not crashed:
         for event in pygame.event.get():
-            if event.type in (pygame.QUIT,):
-                crashed = True
+            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
             yo_movement(display_width/2,display_height/2)
             print(event)
             pygame.display.update()
@@ -126,5 +129,3 @@ def gameloop():
 
 
 main_menu()
-pygame.quit()
-quit()
