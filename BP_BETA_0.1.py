@@ -47,7 +47,8 @@ ship_img = pygame.image.load("boot4.png")
 
 # een boot class hebben we het liefst, maar dat kreeg ik niet voor elkaar.
 
-"""def ship(x, y):
+"""
+def ship(x, y):
     gamedisplay.blit(ship_img(x, y))
 
     if mousbutton_pressed == [1]
@@ -57,7 +58,8 @@ ship_img = pygame.image.load("boot4.png")
         Self.y = posy
 
 x = (display_width * 0.45)
-y = (display_height * 0.8)"""
+y = (display_height * 0.8)
+"""
 
 
 
@@ -160,7 +162,7 @@ def main_menu():
     in_main_menu = True
     while in_main_menu:
         gamedisplay.blit(bg_image,(0, 0))
-        #  gamedisplay.fill(white)
+
 
         TextSurf, TextRect = text_objects("BattlePort", largeText)
         TextRect.center = ((display_width/2), (display_height/2))
@@ -183,12 +185,11 @@ def main_menu():
                     pygame.quit()
                     sys.exit()
                 if (display_width/6*2.4) + 200 > mouse[0] > (display_width/6*2.4) and 450 + 120 > mouse[1] > 450:
-                    pass # moet nog options menu makne
+                    options() # moet nog options menu makne
 
 def paused():
     pause = True
     while pause:
-        # gamedisplay.fill(white)
 
         TextSurf, TextRect = text_objects("Pause", largeText)
         TextRect.center = ((display_width / 2), (display_height / 2))
@@ -214,6 +215,23 @@ def paused():
                 if (display_width/6*2.4) + 200 > mouse[0] > (display_width/6*2.4) and 450 + 120 > mouse[1] > 450:
                     main_menu()
 
+def options():
+    options = True
+    while options:
+
+        gamedisplay.blit(gamedisplay,(0,0,0,200))
+        TextSurf, TextRect = text_objects("options", largeText)
+        TextRect.center = ((display_width / 2), (display_height / 10))
+        gamedisplay.blit(TextSurf, TextRect)
+
+        button("480p", display_width/6, display_height/6, display_width/10.66, display_height/6, red, bright_red, mediumText)
+        button("720p", display_width/6*3, display_height/6, display_width/10.66, display_height/6, red, bright_red, mediumText)
+        button("1080p", display_width/6*5,display_height/6, display_width/10.66, display_height/6, red, bright_red, mediumText)
+
+        mouse = pygame.mouse.get_pos()
+
+        pygame.display.update()
+        clock.tick(15)
 
 def gameloop():
     crashed = False
