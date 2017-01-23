@@ -40,7 +40,7 @@ pygame.display.set_caption('pygame test')
 clock = pygame.time.Clock()
 
 #   loading images and setting the right resolution
-bg_image = pygame.image.load("bg1.jpg")
+bg_image = pygame.image.load("check.png") #bg1 is vervangen
 bg_image = pygame.transform.scale(bg_image, (display_width, display_height))
 ship_img = pygame.image.load("boot4.png")
 
