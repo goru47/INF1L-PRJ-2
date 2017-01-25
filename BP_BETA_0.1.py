@@ -47,17 +47,21 @@ ship_img = pygame.image.load("boot4.png")
 
 # een boot class hebben we het liefst, maar dat kreeg ik niet voor elkaar.
 
-"""def ship(x, y):
-    gamedisplay.blit(ship_img(x, y))
+'''class Ship:
+    def __init__(self):
+        self.image = ship_img
+    def update(self):
 
-    if mousbutton_pressed == [1]
-        Posx = Pygame.get.mousepos(x)
-        Posy = pygame.get.mouse_pos(y)
-        Self.x = posx
-        Self.y = posy
+        mouse = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == MOUSEBUTTONDOWN:
+                if mouse[0]:
 
-x = (display_width * 0.45)
-y = (display_height * 0.8)"""
+    def draw(self, screen):
+        gamedisplay.blit(self.image, (100, 100))'''
+
+
+
 
 
 
@@ -76,6 +80,7 @@ class object:
     def move_left(self):
         self.ox = self.ox - 50
 '''
+
 
 #   function to display button an make them interactive
 #   (message, x pos, y pos, width, height, inactive color, active color, textsize)
@@ -159,7 +164,7 @@ def board_gen():
 def main_menu():
     in_main_menu = True
     while in_main_menu:
-        gamedisplay.blit(bg_image,(0, 0))
+        gamedisplay.blit(bg_image, (0, 0))
         #  gamedisplay.fill(white)
 
         TextSurf, TextRect = text_objects("BattlePort", largeText)
