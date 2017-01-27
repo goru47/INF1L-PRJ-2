@@ -3,16 +3,22 @@ from settings import *
 
 
 class Ship(pg.sprite.Sprite):
-    def __init__(self):
-        pg.sprite.Sprite.__init__(self)
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
         self.image = pg.image.load("boot3.png")
         self.image.set_colorkey(white)
         self.rect = self.image.get_rect()
-        self.rect.center = (width / 2, height / 2)
+        self.x = x
+        self.y = y
+
+    def move(self, dx=0, dy=0):
+        self.x += dx
+        self.y += dy
 
     def update(self):
-        self.rect.x += 5
-        if self.rect.left > width:
-            self.rect.right = 0
+        self.rect.x = self.x * tilesize
+        self.rect.y = self.y * tilesize
 
 
