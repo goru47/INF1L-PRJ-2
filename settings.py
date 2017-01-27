@@ -81,9 +81,9 @@ menu2_image = pg.transform.scale(menu2_image, (50, 50))
 
 # kaarten
 kaartn_image = pg.image.load("backnorm.png")
-kaartn_image = pg.transform.scale(kaartn_image, (80, 160))
+kaartn_image = pg.transform.scale(kaartn_image, (115, 150))
 kaarts_image = pg.image.load("backspec.png")
-kaarts_image = pg.transform.scale(kaarts_image, (80, 160))
+kaarts_image = pg.transform.scale(kaarts_image, (115, 150))
 
 kaart1 = pg.image.load("kaartoffensief_advrifling.png")
 kaart1 = pg.transform.scale(kaart1, (120, 240))
@@ -105,6 +105,15 @@ inst1_image = pg.transform.scale(inst1_image, (600, 580))
 
 
 # boot
-boot2 = pg.image.load("bootje.png")
-boot2 = pg.transform.scale(boot2, (40, 80))
+
+boot3 = pg.image.load("bootje2.png")
+boot3 = pg.transform.scale(boot3, (50, 100))
+boot3.set_colorkey(white)
+
+boot2 = pg.image.load("bootje2.png")
+boot2 = pg.transform.scale(boot2, (50, 70))
 boot2.set_colorkey(white)
+
+boot1 = pg.image.load("bootje2.png")
+boot1 = pg.transform.scale(boot1, (50, 20))
+boot1.set_colorkey(white)
