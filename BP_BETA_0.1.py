@@ -3,14 +3,14 @@ import sys
 from pygame.locals import *
 import random
 import math
-from settings import *
 
 # initialize pygame
 pygame.init()
 pygame.font.init()
 
 
-
+display_width = 1280
+display_height = 720
 
 #   Colors
 black = (0, 0, 0)
@@ -138,23 +138,10 @@ def obj_(len):
     pygame.draw.circle(gamedisplay,black,(ox,oy),10,0)"""
 
 
-def yo_movement(oy,ox):
-    for event in pygame.event.get():
-        while pygame.event.EventType == pygame.KEYDOWN:
-            if event.key == pygame.K_273:
-                oy = oy + 50
-            if event.key == pygame.K_274:
-                oy = oy + 50
-            if event.key == pygame.K_276:
-                ox = ox - 50
-            if event.key == pygame.K_275:
-                ox = ox + 50
-            pygame.display.update()
-
-
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
+
 
 def board_gen(display_width,display_height):
     t = 0
@@ -177,13 +164,12 @@ def board_gen(display_width,display_height):
             y += (display_height/20)
             x = display_width / 5
 
-
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             (mousex, mousey) = pygame.mouse.get_pos()
 
     pygame.display.update()
-    gameloop()
+    gameloop(display_width, display_height)
 
 
 def main_menu(display_width,display_height):
@@ -215,6 +201,7 @@ def main_menu(display_width,display_height):
                 if (display_width/6*2.4) + display_width/5.12 > mouse[0] > (display_width/6*2.4) and display_height/1.6+ display_height/6 > mouse[1] > display_height/1.6:
                     options(display_width,display_height) # moet nog options menu makne
 
+
 def paused(display_width,display_height):
     pause = True
     while pause:
@@ -243,6 +230,7 @@ def paused(display_width,display_height):
                 if (display_width/6*2.4) + 200 > mouse[0] > (display_width/6*2.4) and display_height/1.6 + display_height/6 > mouse[1] > display_height/1.6:
                     main_menu(display_width,display_height)
 
+
 def options(display_width,display_height):
     options = True
     while options:
@@ -264,8 +252,6 @@ def options(display_width,display_height):
         button("window/full", display_width/8, display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
         button("main menu", display_width/8*3, display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
         button("exit", display_width/8*5,display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
-
-
 
         mouse = pygame.mouse.get_pos()
         pygame.display.update()
@@ -301,6 +287,7 @@ def options(display_width,display_height):
                 if (display_width/8*5)+display_width/4 > mouse[0] > (display_width/8*5) and display_height/6*4 + display_height/6 > mouse[1] > display_height/6*4:
                     pygame.quit()
 
+
 def gameloop(display_width,display_height):
     crashed = False
 
@@ -314,8 +301,7 @@ def gameloop(display_width,display_height):
                     pygame.quit()
                     sys.exit()
                 if event.key == pygame.K_p:
-                    paused()
-            yo_movement(display_width/2, display_height/2)
+                    paused(display_width, display_height)
             print(event)
             pygame.display.update()
     clock.tick(5)

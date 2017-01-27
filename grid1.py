@@ -31,7 +31,7 @@ grid[1][5] = 1
 pygame.init()
 
 # [width, height]
-WINDOW_SIZE = [1280, 720]
+WINDOW_SIZE = (1280, 720)
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
 # screen title
