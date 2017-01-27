@@ -3,17 +3,15 @@ import sys
 from pygame.locals import *
 import random
 import math
-
+from settings import *
+from ship import *
 
 # initialize pygame
 pygame.init()
 pygame.font.init()
-display_width = 1280
-display_height = 720
 
 
-display_width = 1280
-display_height = 720
+
 
 #   Colors
 black = (0, 0, 0)
@@ -48,7 +46,8 @@ clock = pygame.time.Clock()
 bg_image = pygame.image.load("bg1.jpg")
 bg_image = pygame.transform.scale(bg_image, (display_width, display_height))
 ship_img = pygame.image.load("boot4.png")
-
+bg_game = pygame.image.load("canvas.png")
+bg_game = pygame.transform.scale(bg_game, (display_width, display_height))
 # een boot class hebben we het liefst, maar dat kreeg ik niet voor elkaar.
 
 """
@@ -141,10 +140,23 @@ def obj_(len):
     pygame.draw.circle(gamedisplay,black,(ox,oy),10,0)"""
 
 
+def yo_movement(oy,ox):
+    for event in pygame.event.get():
+        while pygame.event.EventType == pygame.KEYDOWN:
+            if event.key == pygame.K_273:
+                oy = oy + 50
+            if event.key == pygame.K_274:
+                oy = oy + 50
+            if event.key == pygame.K_276:
+                ox = ox - 50
+            if event.key == pygame.K_275:
+                ox = ox + 50
+            pygame.display.update()
+
+
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
-
 
 def board_gen(display_width,display_height):
     t = 0
@@ -155,7 +167,7 @@ def board_gen(display_width,display_height):
     while y <= display_height:
         while x < (display_width/5)*4:
             if t % 2 == 0:
-                gamedisplay.fill(blue, (x, y, display_width/33, display_height/20))
+                gamedisplay.fill(red, (x, y, display_width/33, display_height/20))
                 t += 1
                 x += (display_width/33)
             else:
@@ -167,6 +179,7 @@ def board_gen(display_width,display_height):
             y += (display_height/20)
             x = display_width / 5
 
+
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             (mousex, mousey) = pygame.mouse.get_pos()
@@ -174,6 +187,24 @@ def board_gen(display_width,display_height):
     pygame.display.update()
     gameloop(display_width, display_height)
 
+
+def draw_grid():
+    gamedisplay.fill(aqua)
+
+    for x in range(0, display_width, tilesize):
+        pg.draw.line(gamedisplay, light_grey, (x, 0), (x, display_height))
+    for y in range(0, display_height, tilesize):
+        pg.draw.line(gamedisplay, light_grey, (0, y), (display_width, y))
+
+    gamedisplay.blit(bg_game, (0, 0))
+    Boat.draw(gamedisplay)
+
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            (mousex, mousey) = pygame.mouse.get_pos()
+
+    pygame.display.update()
+    gameloop(display_width, display_height)
 
 def main_menu(display_width,display_height):
     in_main_menu = True
@@ -197,13 +228,12 @@ def main_menu(display_width,display_height):
         for event in pygame.event.get():
             if event.type == MOUSEBUTTONDOWN:
                 if (display_width/6) + display_width/6.4 > mouse[0] > (display_width/6) and display_height/1.6 + display_height/6 > mouse[1] > display_height/1.6:
-                    board_gen(display_width,display_height)
+                    draw_grid()
                 if (display_width/6*4) + display_width/6.4 > mouse[0] > (display_width/6*4) and display_height/1.6+display_height/6 > mouse[1] > display_height/1.6:
                     pygame.quit()
                     sys.exit()
                 if (display_width/6*2.4) + display_width/5.12 > mouse[0] > (display_width/6*2.4) and display_height/1.6+ display_height/6 > mouse[1] > display_height/1.6:
                     options(display_width,display_height) # moet nog options menu makne
-
 
 def paused(display_width,display_height):
     pause = True
@@ -226,13 +256,12 @@ def paused(display_width,display_height):
         for event in pygame.event.get():
             if event.type == MOUSEBUTTONDOWN:
                 if (display_width / 6) + 200 > mouse[0] > (display_width / 6) and display_height/1.6 + display_height/6 > mouse[1] > display_height/1.6:
-                    board_gen(display_width,display_height)
+                    draw_grid()
                 if (display_width / 6 * 4) + 200 > mouse[0] > (display_width / 6 * 4) and display_height/1.6 + display_height/6 > mouse[1] > display_height/1.6:
                     pygame.quit()
                     sys.exit()
                 if (display_width/6*2.4) + 200 > mouse[0] > (display_width/6*2.4) and display_height/1.6 + display_height/6 > mouse[1] > display_height/1.6:
                     main_menu(display_width,display_height)
-
 
 def options(display_width,display_height):
     options = True
@@ -255,6 +284,8 @@ def options(display_width,display_height):
         button("window/full", display_width/8, display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
         button("main menu", display_width/8*3, display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
         button("exit", display_width/8*5,display_height/6*4, display_width/4, display_height/6, silver, dark_silver, smallText)
+
+
 
         mouse = pygame.mouse.get_pos()
         pygame.display.update()
@@ -290,7 +321,6 @@ def options(display_width,display_height):
                 if (display_width/8*5)+display_width/4 > mouse[0] > (display_width/8*5) and display_height/6*4 + display_height/6 > mouse[1] > display_height/6*4:
                     pygame.quit()
 
-
 def gameloop(display_width,display_height):
     crashed = False
 
@@ -305,9 +335,7 @@ def gameloop(display_width,display_height):
                     sys.exit()
                 if event.key == pygame.K_p:
                     paused(display_width, display_height)
-
             yo_movement(display_width/2, display_height/2)
-
             print(event)
             pygame.display.update()
     clock.tick(5)

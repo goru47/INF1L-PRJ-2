@@ -11,18 +11,19 @@ clock = pygame.time.Clock()
 
 def main():
 
-    endgame_screen = ["Player 1 WON - Battleport"," ","Wesley Neslo - Scrum master"," Freddy da Cruz", "Suraj Doekharan ", "Joris de Putter ", "Milad Besharat ", "Mickey van Eck", "S/O to SS Abaddi"]
+    credit_list = ["Player 1 WON - Battleport"," ","Wesley Neslo - Scrum master"," Freddy da Cruz", "Suraj Doekharan ", "Joris de Putter ", "Milad Besharat ", "Mickey van Eck"]
 
     texts = []
     # we render the text once, since it's easier to work with surfaces
     # also, font rendering is a performance killer
-    for i, line in enumerate(endgame_screen):
+    for i, line in enumerate(credit_list):
         s = font.render(line, 1, (255, 0, 0))
         # we also create a Rect for each Surface.
         # whenever you use rects with surfaces, it may be a good idea to use sprites instead
         # we give each rect the correct starting position
         r = s.get_rect(centerx = screen_r.centerx, y = screen_r.bottom + i * 45)
         texts.append((r, s))
+
 
     while True:
         for e in pygame.event.get():
