@@ -24,6 +24,7 @@ def main():
         r = s.get_rect(centerx = screen_r.centerx, y = screen_r.bottom + i * 45)
         texts.append((r, s))
 
+
     while True:
         for e in pygame.event.get():
             if e.type == QUIT or e.type == KEYDOWN and e.key == pygame.K_ESCAPE:
