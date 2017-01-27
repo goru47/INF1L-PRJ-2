@@ -2,7 +2,6 @@ import pygame as pg
 import random
 import sys
 from settings import *
-from ship import *
 from pygame.locals import *
 
 class Game:
@@ -102,11 +101,13 @@ class Game:
 
         self.screen.blit(board_image, (0, 0))
         self.screen.blit(map_image, (width / 5, height / 10))
-        self.button(menu1_image, menu2_image, 100, 100, 50, 50)
+        self.button(menu1_image, menu2_image, 170, 10, 50, 50)
         self.screen.blit(kaartn_image, (20, 20))
-        self.screen.blit(kaarts_image, (700, 20))
-        self.screen.blit(boot2, (300, 300))
-
+        self.screen.blit(kaarts_image, (665, 20))
+        self.screen.blit(boot3, (244, 250))
+        self.screen.blit(boot2, (294, 300))
+        self.screen.blit(boot1, (244, 350))
+        
         mouse = pg.mouse.get_pos()
         if 700 + 80 > mouse[0] > 700 and 20 + 160 > mouse[1] > 20:
             self.screen.blit(kaart1, (600, 20))
@@ -118,7 +119,7 @@ class Game:
         mouse = pg.mouse.get_pos()
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
-                if 100 + 50 > mouse[0] > 100 and 100 + 50 > mouse[1] > 100:
+                if 170 + 50 > mouse[0] > 170 and 10 + 50 > mouse[1] > 10:
                     game.main_menu()
 
 
