@@ -7,8 +7,8 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
 # This sets the WIDTH and HEIGHT of each grid location
-WIDTH = 20
-HEIGHT = 20
+WIDTH = 30
+HEIGHT = 30
 
 # This sets the margin between each cell
 MARGIN = 5
@@ -25,7 +25,7 @@ for row in range(20):
 
 # Set row 1, cell 5 to one.
 # rows and column numbers start at zero.
-grid[1][5] = 1
+grid[0][10] = 1
 
 # Initialize pygame
 pygame.init()
@@ -35,7 +35,8 @@ WINDOW_SIZE = (1280, 720)
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
 # screen title
-pygame.display.set_caption("Array Backed Grid")
+pygame.display.set_caption("Banaan")
+boot = pygame.image.load("bootje.png")
 
 # loop until close button is used
 done = False
@@ -50,6 +51,7 @@ while not done:
             done = True  # type true in order to show that you are done with the loop
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # when you click, the mouse posotion will be the output
+
             pos = pygame.mouse.get_pos()
             # Change the x/y screen coordinates to grid coordinates
             column = pos[0] // (WIDTH + MARGIN)
@@ -66,13 +68,16 @@ while not done:
         for column in range(20):
             color = WHITE
             if grid[row][column] == 1:
-                color = GREEN
+                color = BLACK
+
             pygame.draw.rect(screen,
                              color,
                              [(MARGIN + WIDTH) * column + MARGIN,
                               (MARGIN + HEIGHT) * row + MARGIN,
                               WIDTH,
                               HEIGHT])
+
+
 
     # 60 fps
     clock.tick(60)
