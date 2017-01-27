@@ -23,6 +23,7 @@ class Game:
     def new(self):
         # start a new game
         self.all_sprites = pg.sprite.Group()
+        self.ship = Ship(self, 10, 10)
         self.paused = False
         self.run()
 
@@ -94,6 +95,11 @@ class Game:
         self.events()
 
     def draw_grid(self):
+        for x in range(0, width, tilesize):
+            pg.draw.line(self.screen, light_grey, (x, 0), (x, height))
+        for y in range(0, height, tilesize):
+            pg.draw.line(self.screen, light_grey, (0, y), (width, y))
+
         self.screen.blit(board_image, (0, 0))
         self.screen.blit(map_image, (width / 5, height / 10))
         self.button(menu1_image, menu2_image, 100, 100, 50, 50)
@@ -114,18 +120,14 @@ class Game:
             if event.type == pg.MOUSEBUTTONDOWN:
                 if 100 + 50 > mouse[0] > 100 and 100 + 50 > mouse[1] > 100:
                     game.main_menu()
-        # self.screen.fill(aqua)
-        # for x in range(0, width, tilesize):
-            # pg.draw.line(self.screen, light_grey, (x, 0), (x, height))
-        # for y in range(0, height, tilesize):
-            # pg.draw.line(self.screen, light_grey, (0, y), (width, y))
+
 
 
 
     def draw(self):
         # Game loop - draw
         self.draw_grid()
-        # self.all_sprites.draw(self.screen)
+        self.all_sprites.draw(self.screen)
         if self.paused:
             self.screen.blit(pause_image, (0, 0))
             self.screen.blit(pauzet_image, (width / 5, width / 8))
