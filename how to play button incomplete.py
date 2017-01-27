@@ -3,13 +3,11 @@ import sys
 from pygame.locals import *
 import random
 import math
-
+from settings import *
 
 # initialize pygame
 pygame.init()
 pygame.font.init()
-display_width = 1280
-display_height = 720
 
 
 
@@ -167,7 +165,7 @@ def board_gen(display_width,display_height):
     while y <= display_height:
         while x < (display_width/5)*4:
             if t % 2 == 0:
-                gamedisplay.fill(blue, (x, y, display_width/33, display_height/20))
+                gamedisplay.fill(red, (x, y, display_width/33, display_height/20))
                 t += 1
                 x += (display_width/33)
             else:
@@ -185,7 +183,7 @@ def board_gen(display_width,display_height):
             (mousex, mousey) = pygame.mouse.get_pos()
 
     pygame.display.update()
-    gameloop(display_width, display_height)
+    gameloop(display_width,display_height)
 
 
 def main_menu(display_width,display_height):
@@ -201,6 +199,7 @@ def main_menu(display_width,display_height):
         button("Play", display_width/6, display_height/1.6, display_width/6.4, display_height/6, blue, bright_blue, smallText)
         button("Quit", display_width/6*4, display_height/1.6, display_width/6.4, display_height/6, red, bright_red, smallText)
         button("Options", display_width/6*2.4, display_height/1.6, display_width/5.12, display_height/6, silver, dark_silver, smallText)
+        button("How to Play", display_width/6*4.5, display_height/16, display_width/5.12, display_height/ 6, red, bright_red, smallText)
 
         mouse = pygame.mouse.get_pos()
 
@@ -216,6 +215,8 @@ def main_menu(display_width,display_height):
                     sys.exit()
                 if (display_width/6*2.4) + display_width/5.12 > mouse[0] > (display_width/6*2.4) and display_height/1.6+ display_height/6 > mouse[1] > display_height/1.6:
                     options(display_width,display_height) # moet nog options menu makne
+                if (display_width/6*4.5) + display_width/5.12 > mouse[0] > (display_width/6*4.5) and display_height/16+ display_height/6 > mouse[1] > display_height/16:
+                    howtoplay(display_width,display_height)
 
 def paused(display_width,display_height):
     pause = True
@@ -303,6 +304,20 @@ def options(display_width,display_height):
                 if (display_width/8*5)+display_width/4 > mouse[0] > (display_width/8*5) and display_height/6*4 + display_height/6 > mouse[1] > display_height/6*4:
                     pygame.quit()
 
+#dit is voor how to play ben er nog mee bezig :)
+
+#def howtoplay(display_width,display_height):
+#    howtoplay = True
+#    while howtoplay:
+#        gamedisplay.fill(aqua)
+#        TextSurf, TextRect = text_objects("how to play", mediumText)
+#        TextRect.center = ((display_width / 2), (display_height / 10))
+#        gamedisplay.blit(TextSurf, TextRect)
+#
+#
+#
+#        mouse = pygame.mouse.get_pos()
+
 def gameloop(display_width,display_height):
     crashed = False
 
@@ -316,7 +331,7 @@ def gameloop(display_width,display_height):
                     pygame.quit()
                     sys.exit()
                 if event.key == pygame.K_p:
-                    paused(display_width, display_height)
+                    paused(display_width,display_height)
             yo_movement(display_width/2, display_height/2)
             print(event)
             pygame.display.update()
