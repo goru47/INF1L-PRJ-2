@@ -3,11 +3,13 @@ import sys
 from pygame.locals import *
 import random
 import math
-from settings import *
+
 
 # initialize pygame
 pygame.init()
 pygame.font.init()
+display_width = 1280
+display_height = 720
 
 
 
@@ -165,7 +167,7 @@ def board_gen(display_width,display_height):
     while y <= display_height:
         while x < (display_width/5)*4:
             if t % 2 == 0:
-                gamedisplay.fill(red, (x, y, display_width/33, display_height/20))
+                gamedisplay.fill(blue, (x, y, display_width/33, display_height/20))
                 t += 1
                 x += (display_width/33)
             else:
@@ -183,7 +185,7 @@ def board_gen(display_width,display_height):
             (mousex, mousey) = pygame.mouse.get_pos()
 
     pygame.display.update()
-    gameloop()
+    gameloop(display_width, display_height)
 
 
 def main_menu(display_width,display_height):
@@ -314,7 +316,7 @@ def gameloop(display_width,display_height):
                     pygame.quit()
                     sys.exit()
                 if event.key == pygame.K_p:
-                    paused()
+                    paused(display_width, display_height)
             yo_movement(display_width/2, display_height/2)
             print(event)
             pygame.display.update()
