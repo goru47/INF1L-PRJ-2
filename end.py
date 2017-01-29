@@ -15,7 +15,8 @@ def main():
 
     texts = []
     # we render the text once, since it's easier to work with surfaces
-    # also, font rendering is a performance killer
+
+    # enumerate is being used so we can line our names up how we want it, instead of having the names in one line/sentence.
     for i, line in enumerate(credit_list):
         s = font.render(line, 1, (255, 0, 0))
         # we also create a Rect for each Surface.

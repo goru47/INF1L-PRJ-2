@@ -3,6 +3,7 @@ import random
 import sys
 from settings import *
 from pygame.locals import *
+from ship import *
 
 class Game:
     def __init__(self):
@@ -272,7 +273,7 @@ class Game:
             mouse = pg.mouse.get_pos()
 
             pg.display.update()
-            self.clock.tick(15)
+            self.clock.tick(60)
 
             for event in pg.event.get():
                 if event.type == MOUSEBUTTONDOWN:
