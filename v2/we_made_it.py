@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+import random
 from settings import *
 from ship import *
 
@@ -22,9 +23,12 @@ class Game:
     def new(self):
         # initialize all variables and do all the setup for a new game
         self.all_sprites = pg.sprite.Group()
+        self.player_sprites = pg.sprite.Group()
         self.wall = pg.sprite.Group()
-        self.player = Player(self, 10, 10)
-        self.boat = Boat(self, 11, 5)
+        self.player_counter = 1
+        self.player1 = Player(self, 10, 10,4)
+        self.player2 = Boat(self, 11, 10,4)
+        self.boat = Boat(self, 11, 5,4)
         for x in range(5, 27):
             Wall(self, x, 1) and Wall(self, x, 22)
         for y in range(1, 22):
@@ -60,6 +64,7 @@ class Game:
     def update(self):
         # update portion of the game loop
         self.all_sprites.update()
+        self.player_sprites.update()
 
     def instructions(self):
         self.screen.blit(instbg_image, (0, 0))
@@ -199,22 +204,50 @@ class Game:
 
     def events(self):
         # catch all events here
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                self.quit()
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:
+        if self.player1.hp > 0 and self.player2.hp > 0:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
                     self.quit()
-                if event.key == pg.K_p:
-                    self.paused = not self.paused
-                if event.key == pg.K_LEFT:
-                    self.player.move(dx=-1)
-                if event.key == pg.K_RIGHT:
-                    self.player.move(dx=1)
-                if event.key == pg.K_UP:
-                    self.player.move(dy=-1)
-                if event.key == pg.K_DOWN:
-                    self.player.move(dy=1)
+                if event.type == pg.KEYUP:
+                    if event.key == pg.K_ESCAPE:
+                        self.quit()
+                    if event.key == pg.K_p:
+                        self.paused = not self.paused
+                    if event.key == pg.K_LEFT:
+                        if self.player_counter == 1:
+                            self.player1.move(dx=-1)
+                            break
+                        if self.player_counter == 2:
+                            self.player2.move(dx=-1)
+                            break
+                    if event.key == pg.K_RIGHT:
+                        if self.player_counter == 1:
+                            self.player1.move(dx=1)
+                            break
+                        if self.player_counter == 2:
+                            self.player2.move(dx=1)
+                            break
+                    if event.key == pg.K_UP:
+                        if self.player_counter == 1:
+                            self.player1.move(dy=-1)
+                            break
+                        if self.player_counter == 2:
+                            self.player2.move(dy=-1)
+                            break
+                    if event.key == pg.K_DOWN:
+                        if self.player_counter == 1:
+                            self.player1.move(dy=1)
+                            break
+                        if self.player_counter == 2:
+                            self.player2.move(dy=1)
+                            break
+                if event.type == pg.KEYDOWN:
+                    if  event.key == pg.K_t and self.player_counter == 2:
+                        self.player_counter = 1
+                        print(self.player_counter)
+                    elif event.key == pg.K_t and self.player_counter == 1:
+                        self.player_counter = 2
+                        print(self.player_counter)
 
     def main_menu(self):
         in_main_menu = True
