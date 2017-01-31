@@ -4,8 +4,8 @@ import random
 
 pygame.init()
 
-display_width = 800
-display_height = 600
+display_width = 1024
+display_height = 768
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
@@ -27,15 +27,12 @@ clock = pygame.time.Clock()
 
 smallfont = pygame.font.SysFont("comicsansms", 15)
 medfont = pygame.font.SysFont("comicsansms", 25)
-largefont = pygame.font.SysFont("comicsansms", 85)
 
 def text_objects(text, color, size="small"):
     if size == "small":
         textSurface = smallfont.render(text, True, color)
     if size == "medium":
         textSurface = medfont.render(text, True, color)
-    if size == "large":
-        textSurface = largefont.render(text, True, color)
 
     return textSurface, textSurface.get_rect()
 
@@ -68,7 +65,7 @@ def Goal_of_the_game():
         message_to_screen("them with your ships. This is an easy task,however by using cards this can become", black, 0)
         message_to_screen("even easier. Use card and your ships efficiently and become victorious.", black, 30)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 500, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -90,7 +87,7 @@ def Your_Turn():
         message_to_screen("of steps (see ship stats). After you have placed all your boats and have", black, 0)
         message_to_screen("done your attacking the turn end and your opponents makes his move.", black, 30)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 500, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -120,7 +117,7 @@ def How_to_attack():
         message_to_screen("boat may also only move when it is in attack position. Players may attack", black, 150)
         message_to_screen("twice per turn, however only once per boat.", black, 180)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 600, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -144,7 +141,7 @@ def How_to_get_cards():
         message_to_screen("cards are harder to get you can only get them by reaching the harbor you opponent", black, 60)
         message_to_screen("opponent controls. This means you need to get behind enemy lines.", black, 90)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 500, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -168,7 +165,7 @@ def Ship_Stats():
         message_to_screen("    3	            3	                2	     Hor&Ver range 3	     Vertical range 4", black, 30)
         message_to_screen("    4	            4	                1	     Hor&Ver range 4	     Vertical range 5", black, 60)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 500, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -195,7 +192,7 @@ def What_are_cards():
         message_to_screen("in his/her hand if you end your turn with more than 6 ", black, 120)
         message_to_screen("then u must discard card until you have only 6 left.", black, 150)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 570, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -220,7 +217,7 @@ def How_to_defend():
         message_to_screen("move when it switches back to the attack position.", black, 90)
         message_to_screen("Switching from position also uses a move.", black, 120)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 540, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -247,7 +244,7 @@ def How_to_use_cards():
         message_to_screen("the card is used the card is placed on a perk spot and its effects last for", black, 90)
         message_to_screen("the rest of the game or if the linked ship is destroyed.", black, 120)
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 530, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -263,17 +260,17 @@ def how_to_play():
                 quit()
 
         gameDisplay.fill(white)
-        button("Goal of the game", 100, 100, 200, 50, green, light_green, action="gotg")
-        button("Your Turn", 100, 160, 200, 50, green, light_green, action="YT")
-        button("How to attack", 100, 220, 200, 50, green, light_green, action="hta")
-        button("How to get cards", 100, 280, 200, 50, green, light_green, action="htgc")
-        button("Ship Stats", 500, 100, 200, 50, green, light_green, action="SS")
-        button("What are cards?", 500, 160, 200, 50, green, light_green, action="wac")
-        button("How to defend", 500, 220, 200, 50, green, light_green, action="htd")
-        button("How to use cards", 500, 280, 200, 50, green, light_green, action="htuc")
+        button("Goal of the game", 140, 100, 200, 50, green, light_green, action="gotg")
+        button("Your Turn", 140, 160, 200, 50, green, light_green, action="YT")
+        button("How to attack", 140, 220, 200, 50, green, light_green, action="hta")
+        button("How to get cards", 140, 280, 200, 50, green, light_green, action="htgc")
+        button("Ship Stats", 684, 100, 200, 50, green, light_green, action="SS")
+        button("What are cards?", 684, 160, 200, 50, green, light_green, action="wac")
+        button("How to defend", 684, 220, 200, 50, green, light_green, action="htd")
+        button("How to use cards", 684, 280, 200, 50, green, light_green, action="htuc")
 
 
-        button("exit", 350, 500, 100, 50, yellow, light_yellow, action="exit")
+        button("exit", 462, 500, 100, 50, yellow, light_yellow, action="exit")
 
         pygame.display.update()
 
@@ -343,69 +340,11 @@ def game_intro():
         gameDisplay.fill(white)
         message_to_screen("this is to test how to play", green, -100, size="small")
 
-        button("how to play", 300, 500, 200, 50, yellow, light_yellow, action="how to play")
+        button("how to play", 412, 500, 200, 50, yellow, light_yellow, action="how to play")
 
 
         pygame.display.update()
 
         clock.tick(15)
 
-
-def gameLoop():
-    gameExit = False
-    gameOver = False
-    FPS = 15
-
-    while not gameExit:
-
-        if gameOver == True:
-            # gameDisplay.fill(white)
-            message_to_screen("Game Over", red, -50, size="large")
-            message_to_screen("Press C to play again or Q to exit", black, 50)
-            pygame.display.update()
-            while gameOver == True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        gameExit = True
-                        gameOver = False
-
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_c:
-                            gameLoop()
-                        elif event.key == pygame.K_q:
-
-                            gameExit = True
-                            gameOver = False
-
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                gameExit = True
-
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    pass
-
-                elif event.key == pygame.K_RIGHT:
-                    pass
-
-                elif event.key == pygame.K_UP:
-                    pass
-
-
-                elif event.key == pygame.K_DOWN:
-                    pass
-
-                elif event.key == pygame.K_p:
-                    pause()
-
-        gameDisplay.fill(white)
-        pygame.display.update()
-        clock.tick(FPS)
-
-    pygame.quit()
-    quit()
-
-
 game_intro()
-gameLoop()
