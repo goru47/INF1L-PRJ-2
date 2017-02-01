@@ -1,7 +1,7 @@
-import pygame as pg
 import sys
 from settings import *
 from ship import *
+import pygame as pg
 
 class Game:
     def __init__(self):

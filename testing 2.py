@@ -80,21 +80,22 @@ class Character(object):                    #Characters can move around and do c
                 return True
         return False
 
-    """def Attack(self, Direction):
+    def Attack(self, Direction):
 
-        if Direction == "UP":
-            if len(Map.Grid[self.Column][(self.Row)-1 and -2]) > 1:
-                print("Enemy in sight")
-        elif Direction == "LEFT":
-            if len(Map.Grid[self.Column-1][(self.Row)]) > 1:
-                return True
-        elif Direction == "RIGHT":
-            if len(Map.Grid[self.Column+1][(self.Row)]) > 1:
-                return True
-        elif Direction == "DOWN":
-            if len(Map.Grid[self.Column][(self.Row)+1]) > 1:
-                return True
-        return False"""
+        for x in range(1, 5):
+            if Direction == "UP":
+                if len(Map.Grid[self.Column][(self.Row)-x]) > 1:
+                    print("Enemy in sight", x, "tiles away")
+            elif Direction == "LEFT":
+                if len(Map.Grid[self.Column-x][(self.Row)]) > 1:
+                    print("Enemy in sight", x, "tiles away")
+            elif Direction == "RIGHT":
+                if len(Map.Grid[self.Column+x][(self.Row)]) > 1:
+                    print("Enemy in sight", x, "tiles away")
+            elif Direction == "DOWN":
+                if len(Map.Grid[self.Column][(self.Row)+x]) > 1:
+                    print("Enemy in sight", x, "tiles away")
+        return False
 
     def Location(self):
         print("Coordinates: " + str(self.Column) + ", " + str(self.Row))
@@ -183,8 +184,12 @@ while not Done:     #Main pygame loop
                 if event.key == 116:
                     TURN += 1
                     Map.Enemy.Movement = 4
-                """if event.key == 32:
-                    if event.key == pygame.K_LEFT:
+                if event.key == 32:
+                    Map.Hero.Attack("LEFT")
+                    Map.Hero.Attack("RIGHT")
+                    Map.Hero.Attack("UP")
+                    Map.Hero.Attack("DOWN")
+                    """if event.key == pygame.K_LEFT:
                         Map.Hero.Move("LEFT")
                     if event.key == pygame.K_RIGHT:
                         Map.Hero.Move("RIGHT")
