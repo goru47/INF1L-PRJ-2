@@ -216,6 +216,238 @@ class Game:
                 if event.key == pg.K_DOWN:
                     self.player.move(dy=1)
 
+    def how_to_play(self):
+        htp = True
+        while htp:
+            self.screen.blit(htpbg_image, (0, 0))
+
+            self.button(htphelp1_image1, start_image2, 140, 100, 150, 50)
+            self.button(htphelp2_image1, start_image2, 140, 160, 150, 50)
+            self.button(htphelp3_image1, start_image2, 140, 220, 150, 50)
+            self.button(htphelp4_image1, start_image2, 140, 280, 150, 50)
+            self.button(htphelp5_image1, start_image2, 684, 100, 150, 50)
+            self.button(htphelp6_image1, start_image2, 684, 160, 150, 50)
+            self.button(htphelp7_image1, start_image2, 684, 220, 150, 50)
+            self.button(htphelp8_image1, start_image2, 684, 280, 150, 50)
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    if 140 + 150 > mouse[0] > 140 and 100 + 50 > mouse[1] > 100:
+                        g.goal_of_the_game()
+                    if 140 + 150 > mouse[0] > 140 and 160 + 50 > mouse[1] > 160:
+                        g.your_turn()
+                    if 140 + 150 > mouse[0] > 140 and 220 + 50 > mouse[1] > 220:
+                        g.how_to_attack()
+                    if 140 + 150 > mouse[0] > 140 and 280 + 50 > mouse[1] > 280:
+                        g.how_to_get_cards()
+                    if 684 + 150 > mouse[0] > 684 and 100 + 50 > mouse[1] > 100:
+                        g.ship_stats()
+                    if 684 + 150 > mouse[0] > 684 and 160 + 50 > mouse[1] > 160:
+                        g.what_are_cards()
+                    if 684 + 150 > mouse[0] > 684 and 220 + 50 > mouse[1] > 220:
+                        g.how_to_defend()
+                    if 684 + 150 > mouse[0] > 684 and 280 + 50 > mouse[1] > 280:
+                        g.how_to_use_cards()
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.main_menu()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def goal_of_the_game(self):
+        gotg = True
+        while gotg:
+            self.screen.blit(gotgbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def your_turn(self):
+        yt = True
+        while yt:
+            self.screen.blit(ytbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def how_to_attack(self):
+        hta = True
+        while hta:
+            self.screen.blit(htabg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def how_to_get_cards(self):
+        htgc = True
+        while htgc:
+            self.screen.blit(htgcbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def ship_stats(self):
+        ss = True
+        while ss:
+            self.screen.blit(ssbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def what_are_cards(self):
+        wac = True
+        while wac:
+            self.screen.blit(wacbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def how_to_defend(self):
+        htd = True
+        while htd:
+            self.screen.blit(htdbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
+    def how_to_use_cards(self):
+        htuc = True
+        while htuc:
+            self.screen.blit(htucbg_image, (0, 0))
+
+            self.button(exit_image1, start_image2, 437, 535, 150, 50)
+
+            mouse = pg.mouse.get_pos()
+
+            pg.display.update()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+
+                    if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
+                        g.how_to_play()
+
+                if event.type == pg.QUIT:
+                    g.quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        g.quit()
+
     def main_menu(self):
         in_main_menu = True
         while in_main_menu:
@@ -237,7 +469,7 @@ class Game:
                     if 600 + 150 > mouse[0] > 600 and 500 + 50 > mouse[1] > 150:
                         pass  # options
                     if 600 + 150 > mouse[0] > 600 and 450 + 50 > mouse[1] > 150:
-                        g.instructions()
+                        g.how_to_play()
                 if event.type == pg.QUIT:
                     g.quit()
                 if event.type == pg.KEYDOWN:
