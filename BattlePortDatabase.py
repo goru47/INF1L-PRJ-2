@@ -44,15 +44,18 @@ def read_database(zoekopdracht):
         print(row)
 
 
-
 #create_table()
+
+
 #data_entry(730, 'jan', 304)
 #data_entry(675, 'guus', 5677)
+
 
 #kweerie("SELECT * FROM scores WHERE score > 9000")
 #kweerie("SELECT * FROM scores WHERE score > 5000 AND score < 9000")
 #kweerie("SELECT * FROM scores WHERE score < 5000")
 #kweerie("SELECT * FROM scores order by score DESC ")
+
 
 
 # Downloads the top score from database
@@ -61,8 +64,8 @@ def download_top_score():
     return result
 
 
-#def delete(pid, naam, score):
-    #cursor.execute("DELETE FROM scores WHERE values(%s, '%s', %s), (pid,naam,score)")
+def delete(pid, naam, score):
+    cursor.execute("DELETE FROM scores WHERE values(%s, '%s', %s), (pid,naam,score)")
 
 
 
@@ -71,7 +74,7 @@ def download_top_score():
 #download_top_score()
 
 
-#cursor.execute("delete from scores * where score = 0;")
+cursor.execute("delete from scores * where score = 0;")
 
 #cursor.execute("DELETE from scores where pid = 830;")
 connection.commit
