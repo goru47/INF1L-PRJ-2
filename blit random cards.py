@@ -11,7 +11,7 @@ window = pygame.display.set_mode((1000,600))
 pygame.display.set_caption("blit card")
 
 # icoon toevoegen
-gameIcon = pygame.image.load('images/BPicon.png')
+gameIcon = pygame.image.load('BPicon.png')
 pygame.display.set_icon(gameIcon)
 
 

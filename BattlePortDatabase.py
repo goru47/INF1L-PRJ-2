@@ -1,4 +1,5 @@
 import psycopg2
+
 connection = psycopg2.connect(database="BattlePort", user="postgres", password="wachtwoord", host="127.0.0.1", port="5433")
 print ("Opened database successfully")
 
