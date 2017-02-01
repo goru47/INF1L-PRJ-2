@@ -8,7 +8,7 @@ pygame.init()
 window = pygame.display.set_mode((1000,600))
 
 #window naam instellen
-pygame.display.set_caption("blit card")
+pygame.display.set_caption("een kaart van de stapel pakken")
 
 # icoon toevoegen
 gameIcon = pygame.image.load('images/BPicon.png')
@@ -47,6 +47,10 @@ clock = pygame.time.Clock()
 #================================================================
 
 # load card sprite
+
+normaal = pygame.image.load("backnorm.png")
+normaal = pygame.transform.scale(normaal, (int(cardsizeX), int(cardsizeY)))
+
 
 #card offensive advanced rifling
 CardOfAdRi = pygame.image.load("kaartoffensief_advrifling.png")#locatie en naam van de afbeelding
@@ -128,23 +132,24 @@ while gameLoop:
 
          #scherm
         window.fill(white)
+        window.blit(normaal, (cardposX, cardposY))
         mouse = pygame.mouse.get_pos()
 
-        # button tekenen
+        # button tekenen                           posx posy sx sy
         knopje = pygame.draw.rect(window, green, (150, 450, 100, 50))
 
 
         # Als de knop aangeklikt wordt:
         ev = pygame.event.get
-        if 150 + 100 > mouse[0] > 150 and 450 + 50 > mouse[1] > 450 and event.type == pygame.MOUSEBUTTONDOWN:
+        if cardposX + cardsizeX > mouse[0] > cardposX and cardposY + cardsizeY > mouse[1] > cardposY and event.type == pygame.MOUSEBUTTONUP:
+            pygame.draw.rect(window, bright_green, (150, 450, 100, 50))
 
+            eenkaart = random.randint(1, 43)
 
             trek_kaart = True
 
             if trek_kaart == True:
-                pygame.draw.rect(window, bright_green, (150, 450, 100, 50))
 
-                eenkaart = random.randint(1, 43)
 
                 #blit cards
 
