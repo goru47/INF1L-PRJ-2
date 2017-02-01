@@ -1,13 +1,14 @@
 import sys
 import random
 from settings import *
-from pygame import mixer
+from endplayer1won import *
+from endplayer2won import *
 import pygame as pg
 
 MapSize = 20                                  #how many tiles in either direction of grid
 
-TileWidth = 20                                #pixel sizes for grid squares
-TileHeight = 20
+TileWidth = 25                               #pixel sizes for grid squares
+TileHeight = 25
 TileMargin = 4
 
 BLACK = (0, 0, 0)                             #some color definitions
@@ -16,6 +17,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 AQUA = (0, 255, 255)
+
 
 
 class MapTile(object):                       #The main class for stationary things that inhabit the grid ... water, shipwrecks, rocks and stuff.
@@ -33,6 +35,8 @@ class Character(object):                    #Characters can move around and do c
         self.Row = Row
         self.Damage = 1
         self.Movement = 4
+        self.Attack_times = 1
+        self.Attack_range = 4
 
     def Move(self, Direction):              #This function is how a character moves around in a certain direction
 
@@ -77,22 +81,27 @@ class Character(object):                    #Characters can move around and do c
                 return True
         return False
 
-    def Attack(self, Direction):
-
-        for x in range(1, 5):
-            if Direction == "UP":
-                if len(Map.Grid[self.Column][(self.Row)-x]) > 1:
-                    print("Enemy in sight", x, "tiles away")
-            elif Direction == "LEFT":
-                if len(Map.Grid[self.Column-x][(self.Row)]) > 1:
-                    print("Enemy in sight", x, "tiles away")
-            elif Direction == "RIGHT":
-                if len(Map.Grid[self.Column+x][(self.Row)]) > 1:
-                    print("Enemy in sight", x, "tiles away")
-            elif Direction == "DOWN":
-                if len(Map.Grid[self.Column][(self.Row)+x]) > 1:
-                    print("Enemy in sight", x, "tiles away")
-        return False
+    def Attack(self):
+        for r in range(1, self.Attack_range + 1):
+            for i in range(0, len(Map.Grid[self.Column][self.Row - r])):
+                if Map.Grid[self.Column][self.Row - r][i].__class__.__name__ == "Character":
+                    Map.Grid[self.Column][self.Row - r][i].HP -= self.Damage
+                    print(str(self.Damage) + " damage ")
+        for r in range(1, self.Attack_range + 1):
+            for i in range(0, len(Map.Grid[self.Column + r][self.Row])):
+                if Map.Grid[self.Column + r][self.Row][i].__class__.__name__ == "Character":
+                    Map.Grid[self.Column + r][self.Row][i].HP -= self.Damage
+                    print(str(self.Damage) + " damage")
+        for r in range(1, self.Attack_range + 1):
+            for i in range(0, len(Map.Grid[self.Column - r][self.Row])):
+                if Map.Grid[self.Column - r][self.Row][i].__class__.__name__ == "Character":
+                    Map.Grid[self.Column - r][self.Row][i].HP -= self.Damage
+                    print(str(self.Damage) + " damage")
+        for r in range(1, self.Attack_range + 1):
+            for i in range(0, len(Map.Grid[self.Column][self.Row + r])):
+                if Map.Grid[self.Column][self.Row + r][i].__class__.__name__ == "Character":
+                    Map.Grid[self.Column][self.Row + r][i].HP -= self.Damage
+                    print(str(self.Damage) + " damage")
 
     def Location(self):
         print("Coordinates: " + str(self.Column) + ", " + str(self.Row))
@@ -125,9 +134,9 @@ class Map(object):              #The main class; where the action happens
         TempTile = MapTile("Shipwreck", RandomColumn, RandomRow)
         Grid[RandomColumn][RandomRow].append(TempTile)
 
-    RandomRow = random.randint(0, MapSize - 1)      #Dropping the hero in
+    RandomRow = random.randint(0, MapSize - 1)      #Dropping the Ship in
     RandomColumn = random.randint(0, MapSize - 1)
-    Hero = Character("Hero", 10, RandomColumn, RandomRow)
+    Ship = Character("Ship", 10, RandomColumn, RandomRow)
     RandomRow = random.randint(0, MapSize - 1)      #Dropping the enemy in
     RandomColumn = random.randint(0, MapSize - 1)
     Enemy = Character("Enemy", 10, RandomColumn, RandomRow)
@@ -144,12 +153,20 @@ class Map(object):              #The main class; where the action happens
                 for i in range(len(Map.Grid[Column][Row])):
                     if Map.Grid[Column][Row][i].Column != Column:
                         Map.Grid[Column][Row].remove(Map.Grid[Column][Row][i])
-                    elif Map.Grid[Column][Row][i].Name == "Hero":
+                    elif Map.Grid[Column][Row][i].Name == "Ship":
                         Map.Grid[Column][Row].remove(Map.Grid[Column][Row][i])
                     elif Map.Grid[Column][Row][i].Name == "Enemy":
                         Map.Grid[Column][Row].remove(Map.Grid[Column][Row][i])
-        Map.Grid[int(Map.Hero.Column)][int(Map.Hero.Row)].append(Map.Hero)
+        Map.Grid[int(Map.Ship.Column)][int(Map.Ship.Row)].append(Map.Ship)
         Map.Grid[int(Map.Enemy.Column)][int(Map.Enemy.Row)].append(Map.Enemy)
+
+        for column in range(MapSize):   #This checks entire grid for any dead characters and removes them
+            for row in range(MapSize):
+                for i in range(len(Map.Grid[column][row])):
+                    if Map.Grid[column][row][i].__class__.__name__ == "Character":
+                        if Map.Grid[column][row][i].HP <= 0:
+                            Map.Grid[column][row].remove(Map.Grid[column][row][i])
+                            # print("Character died")
 
 Map = Map()
 
@@ -168,10 +185,10 @@ class Menu(States):
         self.next = 'game'
         self.screen = pg.display.set_mode((800, 600))
     def cleanup(self):
-        print('cleaning up Menu state stuff')
+        print('cleaning up Menu state')
 
     def startup(self):
-        print('starting Menu state stuff')
+        print('starting Menu state')
 
     def button(self, naam1, naam2, x, y, w, h):
         # image, image highlight, x pos, y pos, width, height
@@ -186,8 +203,6 @@ class Menu(States):
 
     def get_event(self, event):
         mouse = pg.mouse.get_pos()
-        if event.type == pg.KEYDOWN:
-            print('Menu State keydown')
         if event.type == pg.MOUSEBUTTONDOWN:
             if 600 + 150 > mouse[0] > 600 and 400 + 50 > mouse[1] > 150:
                 self.done = True
@@ -220,11 +235,12 @@ class Game(States):
         States.__init__(self)
         self.next = 'menu'
         self.TURN = 0
+
     def cleanup(self):
-        print('cleaning up Game state stuff')
+        print('cleaning up Game state')
 
     def startup(self):
-        print('starting Game state stuff')
+        print('starting Game state')
 
     def get_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -234,24 +250,35 @@ class Game(States):
             print(str(Row) + ", " + str(Column))
 
             for i in range(len(Map.Grid[Column][Row])):
-                   print(str(Map.Grid[Column][Row][i].Name))  #print stuff that inhabits that square
+                print(str(Map.Grid[Column][Row][i].Name))  #p  rint stuff that inhabits that square
+                if len(Map.Grid[Column][Row]) > 1:
+                    if Map.Grid[Column][Row][i].__class__.__name__ == "Character":
+                        print("HP: " + (str(Map.Grid[Column][Row][i].HP)))
+                        print("Attack range: " + (str(Map.Grid[Column][Row][i].Attack_range)))
+                        print("Moves left: " + (str(Map.Grid[Column][Row][i].Movement)))
 
         elif event.type == pg.KEYDOWN:
-            if event.key == 13:
+            if event.key == 8:         # backspace
                 self.done = True
+            if event.key == 122:        # z
+                player_1_win()
+            if event.key == 120:        # x
+                player_2_win()
 
             if self.TURN % 2 == 0:
                 if event.key == pg.K_LEFT:
-                    Map.Hero.Move("LEFT")
+                    Map.Ship.Move("LEFT")
                 if event.key == pg.K_RIGHT:
-                    Map.Hero.Move("RIGHT")
+                    Map.Ship.Move("RIGHT")
                 if event.key == pg.K_UP:
-                    Map.Hero.Move("UP")
+                    Map.Ship.Move("UP")
                 if event.key == pg.K_DOWN:
-                    Map.Hero.Move("DOWN")
-                if event.key == 116:
+                    Map.Ship.Move("DOWN")
+                if event.key == 13:            # enter
                     self.TURN += 1
                     Map.Enemy.Movement = 4
+                if event.key == 32:
+                    Map.Ship.Attack()
 
             else:
                 if event.key == pg.K_LEFT:
@@ -262,10 +289,11 @@ class Game(States):
                     Map.Enemy.Move("UP")
                 if event.key == pg.K_DOWN:
                     Map.Enemy.Move("DOWN")
-                if event.key == 116:
+                if event.key == 13:
                     self.TURN += 1
-                    Map.Hero.Movement = 4
-
+                    Map.Ship.Movement = 4
+                if event.key == 32:
+                    Map.Enemy.Attack()
 
     def update(self, screen, dt):
         Map.update()
@@ -280,7 +308,7 @@ class Game(States):
                     Color = AQUA
                     if len(Map.Grid[Column][Row]) == 2:
                         Color = RED
-                    if Map.Grid[Column][Row][i].Name == "Hero":
+                    if Map.Grid[Column][Row][i].Name == "Ship":
                         Color = GREEN
                     if Map.Grid[Column][Row][i].Name == "Enemy":
                         Color = BLACK
