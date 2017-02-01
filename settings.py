@@ -16,8 +16,8 @@ light_grey = (100, 100, 100)
 dark_grey = (40, 40, 40)
 
 # game settings
-width = 800
-height = 600
+width = 1024
+height = 768
 '''width = 1024    # 16 * 64 or 32 * 32 or 64 * 16
 height = 768    # # 16 * 48 or 32 * 24 or 64 * 12'''
 fps = 30
@@ -44,7 +44,7 @@ def text_objects(text, font):
 
 # images
 bg_image = pg.image.load("check.png")
-bg_image = pg.transform.scale(bg_image, (800, 600))
+bg_image = pg.transform.scale(bg_image, (1024, 768))
 
 # main menu image
 title_image = pg.image.load("titel.png")
@@ -81,9 +81,9 @@ menu2_image = pg.transform.scale(menu2_image, (50, 50))
 
 # kaarten
 kaartn_image = pg.image.load("backnorm.png")
-kaartn_image = pg.transform.scale(kaartn_image, (115, 150))
+kaartn_image = pg.transform.scale(kaartn_image, (80, 160))
 kaarts_image = pg.image.load("backspec.png")
-kaarts_image = pg.transform.scale(kaarts_image, (115, 150))
+kaarts_image = pg.transform.scale(kaarts_image, (80, 160))
 
 kaart1 = pg.image.load("kaartoffensief_advrifling.png")
 kaart1 = pg.transform.scale(kaart1, (120, 240))
@@ -105,15 +105,6 @@ inst1_image = pg.transform.scale(inst1_image, (600, 580))
 
 
 # boot
-
-boot3 = pg.image.load("bootje2.png")
-boot3 = pg.transform.scale(boot3, (50, 100))
-boot3.set_colorkey(white)
-
-boot2 = pg.image.load("bootje2.png")
-boot2 = pg.transform.scale(boot2, (50, 70))
+boot2 = pg.image.load("bootje.png")
+boot2 = pg.transform.scale(boot2, (40, 80))
 boot2.set_colorkey(white)
-
-boot1 = pg.image.load("bootje2.png")
-boot1 = pg.transform.scale(boot1, (50, 20))
-boot1.set_colorkey(white)
