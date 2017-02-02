@@ -1,7 +1,7 @@
+import pygame as pg
 import sys
 from settings import *
 from ship import *
-import pygame as pg
 
 class Game:
     def __init__(self):
@@ -75,17 +75,14 @@ class Game:
 
         """self.screen.blit(board_image, (0, 0))
         self.screen.blit(map_image, (width / 5, height / 10))
-
         self.button(menu1_image, menu2_image, 100, 100, 50, 50)
         self.screen.blit(kaartn_image, (20, 20))
         self.screen.blit(kaarts_image, (700, 20))
-
         mouse = pg.mouse.get_pos()
         if 700 + 80 > mouse[0] > 700 and 20 + 160 > mouse[1] > 20:
             self.screen.blit(kaart1, (600, 20))
         if 20 + 80 > mouse[0] > 20 and 20 + 160 > mouse[1] > 20:
             self.screen.blit(kaart2, (70, 20))
-
         for event in pg.event.get():
             if event.type == pg.MOUSEBUTTONDOWN:
                 if 100 + 50 > mouse[0] > 100 and 100 + 50 > mouse[1] > 100:
@@ -111,12 +108,10 @@ class Game:
             TextSurf, TextRect = text_objects("options", pg.font.Font('freesansbold.ttf', 60))
             TextRect.center = ((width / 2), (height/ 10))
             self.screen.blit(TextSurf, TextRect)
-
             self.button("resolution", width / 24, height / 6, width / 6, height / 6, red,red, pg.font.Font('freesansbold.ttf', 20))
             self.button("480p", width / 8 * 2, height / 6, width / 6, height / 6, silver,dark_silver, pg.font.Font('freesansbold.ttf', 20))
             self.button("720p", width / 8 * 4, height / 6, width / 6, height / 6, silver,dark_silver, pg.font.Font('freesansbold.ttf', 20))
             self.button("1080p", width / 8 * 6, height / 6, width / 6, height / 6, silver,dark_silver, pg.font.Font('freesansbold.ttf', 20))
-
             self.button("sound", width / 24, height
                             / 6 * 2.5, width / 6, height
                             / 6, red,red, pg.font.Font('freesansbold.ttf', 20))
@@ -129,7 +124,6 @@ class Game:
             self.button("100%", width / 8 * 6, height
                             / 6 * 2.5, width / 6, height
                             / 6,silver, dark_silver, pg.font.Font('freesansbold.ttf', 20))
-
             self.button("window/full", width / 8, height
                             / 6 * 4, width / 4, height
                             / 6,silver, dark_silver, pg.font.Font('freesansbold.ttf', 20))
@@ -139,10 +133,8 @@ class Game:
             self.button("exit", width / 8 * 5, height
                             / 6 * 4, width / 4, height
                             / 6, silver,dark_silver, pg.font.Font('freesansbold.ttf', 20))
-
             mouse = pg.mouse.get_pos()
             pg.display.update()
-
             for event in pg.event.get():
                 if event.type == pg.MOUSEBUTTONDOWN:
                     if (width / 8 * 2) + width / 6 > mouse[0] > (width / 8 * 2) and height\
@@ -491,4 +483,3 @@ while g.running:
     g.main_menu
 
 pg.quit()
-
