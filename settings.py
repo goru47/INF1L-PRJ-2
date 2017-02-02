@@ -15,9 +15,17 @@ bright_blue = (0, 0, 255)
 light_grey = (100, 100, 100)
 dark_grey = (40, 40, 40)
 
+# ship & enemy colors
+ship_1 = (0, 255, 0)
+ship_2 = (0, 200, 0)
+ship_3 = (0, 120, 0)
+enemy_1 = (255, 0, 0)
+enemy_2 = (220, 0, 0)
+enemy_3 = (195, 0, 0)
+
 # game settings
-width = 1024
-height = 768
+width = 800
+height = 600
 '''width = 1024    # 16 * 64 or 32 * 32 or 64 * 16
 height = 768    # # 16 * 48 or 32 * 24 or 64 * 12'''
 fps = 30
@@ -39,12 +47,6 @@ def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
 
-
-
-
-# images
-bg_image = pg.image.load("check.png")
-bg_image = pg.transform.scale(bg_image, (1024, 768))
 
 # how to play image
 htpbg_image = pg.image.load("helpbg.png")
@@ -107,6 +109,11 @@ htdbg_image = pg.image.load("htdbg.png")
 htdbg_image = pg.transform.scale(htdbg_image, (1024, 768))
 
 
+
+# images
+bg_image = pg.image.load("check.png")
+bg_image = pg.transform.scale(bg_image, (1024, 768))
+
 # main menu image
 title_image = pg.image.load("titel.png")
 title_image = pg.transform.scale(title_image, (471, 78))
@@ -130,7 +137,7 @@ start_image2 = pg.transform.scale(start_image2, (150, 50))
 
 # board 1 en map 1
 board_image = pg.image.load("menu2.png")
-board_image = pg.transform.scale(board_image, (800, 600))
+board_image = pg.transform.scale(board_image, (1024, 768))
 map_image = pg.image.load("gamemap.png")
 map_image = pg.transform.scale(map_image, (480, 480))
 
@@ -159,10 +166,10 @@ pauzet_image = pg.transform.scale(pauzet_image, (471, 78))
 
 # instruction
 instbg_image = pg.image.load("oceaan.jpg")
-instbg_image = pg.transform.scale(instbg_image, (800, 600))
+instbg_image = pg.transform.scale(instbg_image, (1024, 768))
 
 inst1_image = pg.image.load("instr2.png")
-inst1_image = pg.transform.scale(inst1_image, (600, 580))
+inst1_image = pg.transform.scale(inst1_image, (900, 700))
 
 
 # boot
