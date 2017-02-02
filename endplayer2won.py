@@ -9,7 +9,7 @@ screen_r = screen.get_rect()
 font = pygame.font.SysFont("Arial", 40)
 clock = pygame.time.Clock()
 
-def main():
+def player_2_win():
 
     credit_list = ["Player 2 WON - Battleport"," ","Wesley Neslo - Scrum master"," Freddy da Cruz", "Suraj Doekharan ", "Joris de Putter ", "Milad Besharat ", "Mickey van Eck"]
 
@@ -50,4 +50,4 @@ def main():
         clock.tick(60)
 
 if __name__ == '__main__':
-    main()
+    player_2_win()
