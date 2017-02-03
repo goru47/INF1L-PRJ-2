@@ -1,15 +1,14 @@
-
-import pygame
 from pygame.locals import *
+import pygame as pg
 
-pygame.init()
-pygame.display.set_caption('Ending')
-screen = pygame.display.set_mode((800, 600))
+pg.init()
+pg.display.set_caption('Ending')
+screen = pg.display.set_mode((1024, 768))
 screen_r = screen.get_rect()
-font = pygame.font.SysFont("Arial", 40)
-clock = pygame.time.Clock()
+font = pg.font.SysFont("Arial", 40)
+clock = pg.time.Clock()
 
-def main():
+def player_2_win():
 
     credit_list = ["Player 2 WON - Battleport"," ","Wesley Neslo - Scrum master"," Freddy da Cruz", "Suraj Doekharan ", "Joris de Putter ", "Milad Besharat ", "Mickey van Eck"]
 
@@ -27,8 +26,8 @@ def main():
 
 
     while True:
-        for e in pygame.event.get():
-            if e.type == QUIT or e.type == KEYDOWN and e.key == pygame.K_ESCAPE:
+        for e in pg.event.get():
+            if e.type == QUIT or e.type == KEYDOWN and e.key == pg.K_ESCAPE:
                 return
 
         screen.fill((0, 0, 0))
@@ -43,11 +42,11 @@ def main():
         if not screen_r.collidelistall([r for (r, _) in texts]):
             return
 
-        # update the screen -> pygame.display.update() can be used as well
-        pygame.display.flip()
+        # update the screen -> pg.display.update() can be used as well
+        pg.display.flip()
 
         # random fps
         clock.tick(60)
 
-if __name__ == '__main__':
-    main()
+#   if __name__ == '__main__':
+#       main()

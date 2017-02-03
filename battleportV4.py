@@ -34,7 +34,7 @@ class Character(object):                    #Characters can move around and do c
         self.Column = Column
         self.Row = Row
         self.Damage = 1
-        self.Movement = 4
+        self.Movement = 99
         self.Attack_times = 1
         self.Attack_range = 4
 
@@ -185,12 +185,50 @@ class Map(object):              #The main class; where the action happens
         Map.Grid[int(Map.Enemy2.Column)][int(Map.Enemy2.Row)].append(Map.Enemy2)
         Map.Grid[int(Map.Enemy3.Column)][int(Map.Enemy3.Row)].append(Map.Enemy3)
 
-
+        player1 = 3
+        player2 = 3
         for column in range(MapSize):   #This checks entire grid for any dead characters and removes them
             for row in range(MapSize):
                 for i in range(len(Map.Grid[column][row])):
                     if Map.Grid[column][row][i].__class__.__name__ == "Character":
                         if Map.Grid[column][row][i].HP <= 0:
+                            if Map.Grid[column][row][i].Name == "Ship":
+                                if player1 > 0:
+                                    player1 -= 1
+                                    if player1 == 0:
+                                        player1 == 3
+                                        player_2_win()
+                            if Map.Grid[column][row][i].Name == "Ship2":
+                                if player1 > 0:
+                                    player1 -= 1
+                                    if player1 == 0:
+                                        player1 == 3
+                                        player_2_win()
+                            if Map.Grid[column][row][i].Name == "Ship3":
+                                if player1 > 0:
+                                    player1 -= 1
+                                    if player1 == 0:
+                                        player1 == 3
+                                        player_2_win()
+                            if Map.Grid[column][row][i].Name == "Enemy":
+                                if player2 > 0:
+                                    player2 -= 1
+                                    if player2 == 0:
+                                        player2 == 3
+                                        player_1_win()
+                            if Map.Grid[column][row][i].Name == "Enemy2":
+                                if player2 > 0:
+                                    player2 -= 1
+                                    if player2 == 0:
+                                        player2 == 3
+                                        player_1_win()
+                            if Map.Grid[column][row][i].Name == "Enemy3":
+                                if player2 > 0:
+                                    player2 -= 1
+                                    if player2 == 0:
+                                        player2 == 3
+                                        player_1_win()
+
                             Map.Grid[column][row].remove(Map.Grid[column][row][i])
                             # print("Character died")
 
@@ -210,10 +248,13 @@ class Menu(States):
         States.__init__(self)
         self.next = 'game'
         self.screen = pg.display.set_mode((1024, 768))
+        music_menu("intro.ogg", 44100, -16, 2, 4096)
+
     def cleanup(self):
         print('cleaning up Menu state')
 
     def startup(self):
+        music_menu("intro.ogg", 44100, -16 , 2, 4096)
         print('starting Menu state')
 
     def button(self, naam1, naam2, x, y, w, h):
@@ -229,9 +270,9 @@ class Menu(States):
 
     def how_to_play(self):
         self.htp = True
+        music_click("help.ogg", 44100, -16 ,2, 4096)
         while self.htp:
             self.screen.blit(htpbg_image, (0, 0))
-
             self.button(htphelp1_image1, start_image2, 140, 100, 150, 50)
             self.button(htphelp2_image1, start_image2, 140, 160, 150, 50)
             self.button(htphelp3_image1, start_image2, 140, 220, 150, 50)
@@ -293,10 +334,10 @@ class Menu(States):
                         self.gotg = not self.gotg
 
                 if event.type == pg.QUIT:
-                    g.quit()
+                    quit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        g.quit()
+                        quit()
 
     def your_turn(self):
         self.yt = True
@@ -462,6 +503,7 @@ class Menu(States):
     def get_event(self, event):
         mouse = pg.mouse.get_pos()
         if event.type == pg.MOUSEBUTTONDOWN:
+            music_click("clickex.ogg",44100, 0 ,0, 4096)
             if 768 + 150 > mouse[0] > 768 and 400 + 50 > mouse[1] > 150:
                 self.done = True
             if 768 + 150 > mouse[0] > 768 and 500 + 50 > mouse[1] > 150:
@@ -495,10 +537,12 @@ class Game(States):
         self.TURN = 0
         self.paused = False
         self.screen = pg.display.set_mode((1024, 768))
+
     def cleanup(self):
         print('cleaning up Game state')
 
     def startup(self):
+        music_menu("intro2.ogg", 44100, -16 ,2, 4096)
         print('starting Game state')
 
     def button(self, naam1, naam2, x, y, w, h):
@@ -670,6 +714,7 @@ class Game(States):
                                                  TileHeight])
 
     def how_to_play(self):
+        music_menu("help.ogg", 44100, -16, 2, 4096)
         self.htp = True
         while self.htp:
             self.screen.blit(htpbg_image, (0, 0))
@@ -710,6 +755,8 @@ class Game(States):
 
                     if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
                         self.htp = not self.htp
+                        pg.mixer.music.stop()
+                        music_menu("intro2.ogg", 44100, -16, 2, 4096)
 
                 if event.type == pg.QUIT:
                     quit()
@@ -735,10 +782,10 @@ class Game(States):
                         self.gotg = not self.gotg
 
                 if event.type == pg.QUIT:
-                    g.quit()
+                    quit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        g.quit()
+                        quit()
 
     def your_turn(self):
         self.yt = True
@@ -948,6 +995,7 @@ if __name__ == '__main__':
         'size': (1024, 768),
         'fps': 60
     }
+
 
     app = Control(**settings)
     state_dict = {

@@ -24,6 +24,16 @@ enemy_2 = (220, 0, 0)
 enemy_3 = (195, 0, 0)
 
 
+def music_menu(filename,freq,size,channel,buffersize):
+    pg.mixer.pre_init(freq, -16, 1, 4096)
+    pg.mixer.music.load(filename)
+    pg.mixer.music.play(-1,0.0)
+
+def music_click(filename,freq,size,channel,buffersize):
+    pg.mixer.pre_init(freq, -16, 2, 4096)
+    pg.mixer.music.load(filename)
+    pg.mixer.music.play(0,0.0)
+
 # game settings
 width = 800
 height = 600
@@ -179,77 +189,7 @@ boot2 = pg.transform.scale(boot2, (40, 80))
 boot2.set_colorkey(white)
 
 
-#================================================================
-
-card_multiplier = 0.3#bepaalt hoeveel keer de kaart vergroot/verkleind wordt t.o.v. de originele grootte
-cardposX = 200
-cardposY = 100
-cardsizeX = 600 * card_multiplier
-cardsizeY = 900 * card_multiplier
-
-# load card sprite
-
-normaal = pg.image.load("backnorm.png")
-normaal = pg.transform.scale(normaal, (int(cardsizeX), int(cardsizeY)))
-
-
-#card offensive advanced rifling
-CardOfAdRi = pg.image.load("kaartoffensief_advrifling.png")#locatie en naam van de afbeelding
-CardOfAdRi = pg.transform.scale(CardOfAdRi, (int(cardsizeX), int(cardsizeY)))
-
-#card offensive EMP
-CardOfEMP = pg.image.load("kaartoffensief_emp.png")
-CardOfEMP = pg.transform.scale(CardOfEMP, (int(cardsizeX), int(cardsizeY)))
-
-#card offensive FMJ
-CardOfFMJ = pg.image.load("kaartoffensief_fmj.png")
-CardOfFMJ = pg.transform.scale(CardOfFMJ, (int(cardsizeX), int(cardsizeY)))
-
-#card offensive Mine
-CardOfMine = pg.image.load("kaartoffensief_mine.png")
-CardOfMine = pg.transform.scale(CardOfMine, (int(cardsizeX), int(cardsizeY)))
-
-#card offensive Mine
-CardOfRif = pg.image.load("kaartoffensief_rifling.png")
-CardOfRif = pg.transform.scale(CardOfRif, (int(cardsizeX), int(cardsizeY)))
-
-#----------------------------------------------------------
-
-#card defensief reinforced hull
-CardDefReHull = pg.image.load("kaartdefensief_reinforcedhull.png")
-CardDefReHull = pg.transform.scale(CardDefReHull, (int(cardsizeX), int(cardsizeY)))
-
-#card defensief sonar
-CardDefSonar = pg.image.load("kaartdefensief_sonar.png")
-CardDefSonar = pg.transform.scale(CardDefSonar, (int(cardsizeX), int(cardsizeY)))
-
-#card defensief smokescreen
-CardDefSmoke = pg.image.load("kaartdefensief_smoke.png")
-CardDefSmoke = pg.transform.scale(CardDefSmoke, (int(cardsizeX), int(cardsizeY)))
-
-#card defensief sabotage
-CardDefSabo = pg.image.load("kaartdefensief_sabotage.png")
-CardDefSabo = pg.transform.scale(CardDefSabo, (int(cardsizeX), int(cardsizeY)))
-
-#--------------------------------------------------------------
-
-# card hulp backup
-CardHulpBackup = pg.image.load("kaarthulp_backup.png")
-CardHulpBackup = pg.transform.scale(CardHulpBackup, (int(cardsizeX), int(cardsizeY)))
-
-#card hulp extra fuel
-CardHulpFuel = pg.image.load("kaarthulp_extrafuel.png")
-CardHulpFuel = pg.transform.scale(CardHulpFuel, (int(cardsizeX), int(cardsizeY)))
-
-#card hulp extra fuel2
-CardHulpFuel2 = pg.image.load("kaarthulp_extrafuel2.png")
-CardHulpFuel2 = pg.transform.scale(CardHulpFuel2, (int(cardsizeX), int(cardsizeY)))
-
-#card hulp rally
-CardHulpRally = pg.image.load("kaarthulp_rally.png")
-CardHulpRally = pg.transform.scale(CardHulpRally, (int(cardsizeX), int(cardsizeY)))
-
-#card hulp adrenaline rush
-CardHulpRush = pg.image.load("kaarthulp_adrenaline.png")
-CardHulpRush = pg.transform.scale(CardHulpRush, (int(cardsizeX), int(cardsizeY)))
-
+startb = pg.image.load("startb.png")
+# startb = pg.transform.scale(startb, (50, 100))
+startb2 = pg.image.load("startb2.png")
+# startb2 = pg.transform.scale(startb2, (50, 100))
