@@ -3,32 +3,26 @@ import pygame
 from pygame.locals import *
 
 pygame.init()
-
 size = width, height = 800,600
-
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("dammit man")
+pygame.display.set_caption("testing")
 myfont = pygame.font.SysFont("monospace", 16)
 WHITE = (255,255,255)
 
+steps = 4
 
-
-def step_counter():
-    steps = 4
-
-    while steps > 0:
-        pygame.display.flip()
-
-        randomtext  = myfont.render("Dammit man", 1, (0,0,0))
-    screen.blit(randomtext, (5, 550))
-
-    text = myfont.render("steps {0}".format(steps), 1, (0, 0, 0))
-    screen.blit(text, (5, 10))
-
+while True:
+    pygame.display.flip()
     for event in pygame.event.get():
-            # I remove the timer just for my testing
+        # I remove the timer just for my testing
         if event.type == pygame.QUIT: sys.exit()
 
+    screen.fill(WHITE)
+
+    disclaimertext = myfont.render("Bonobo", 1, (0,0,0))
+    screen.blit(disclaimertext, (5, 580))
+
+    for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 steps -= 1
@@ -40,4 +34,7 @@ def step_counter():
                 steps -= 1
                 break
 
-sys.exit()
+    text = myfont.render("steps {0}".format(steps), 0, (0,0,0))
+    screen.blit(text, (700, 0))
+    steps -= 1
+
