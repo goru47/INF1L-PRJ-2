@@ -1,22 +1,23 @@
 from battleportV4 import *
 from pygame.locals import *
 import pygame as pg
+import pygame
 
 pg.init()
 pg.display.set_caption('Ending')
 screen = pg.display.set_mode((1024, 768))
 screen_r = screen.get_rect()
-<<<<<<< HEAD
+
 font = pg.font.SysFont("Arial", 40)
 clock = pg.time.Clock()
-=======
+
 font = pygame.font.SysFont("Arial", 40)
 clock = pygame.time.Clock()
 
 def player_1_win():
->>>>>>> cfa1087ed63a19ac6783e65a79252ec0f0a8a734
 
-def player_1_win():
+
+
     font = pg.font.SysFont("Arial", 40)
     credit_list = ["Player 1 WON - Battleport"," ","Wesley Neslo - Scrum master"," Freddy da Cruz", "Suraj Doekharan ", "Joris de Putter ", "Milad Besharat ", "Mickey van Eck"]
 
@@ -56,12 +57,12 @@ def player_1_win():
         # random fps
         clock.tick(60)
 
-<<<<<<< HEAD
+
 
 
 #   if __name__ == '__main__':
 #       main()
-=======
+
 if __name__ == '__main__':
     player_1_win()
->>>>>>> cfa1087ed63a19ac6783e65a79252ec0f0a8a734
+

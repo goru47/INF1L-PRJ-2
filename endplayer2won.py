@@ -1,5 +1,6 @@
 from pygame.locals import *
 import pygame as pg
+import pygame
 
 pg.init()
 pg.display.set_caption('Ending')
@@ -48,10 +49,10 @@ def player_2_win():
         # random fps
         clock.tick(60)
 
-<<<<<<< HEAD
+
 #   if __name__ == '__main__':
 #       main()
-=======
+
 if __name__ == '__main__':
     player_2_win()
->>>>>>> cfa1087ed63a19ac6783e65a79252ec0f0a8a734
+
