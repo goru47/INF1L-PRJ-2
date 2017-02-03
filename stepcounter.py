@@ -14,7 +14,7 @@ steps = 4
 while True:
     pygame.display.flip()
     for event in pygame.event.get():
-        # I remove the timer just for my testing
+
         if event.type == pygame.QUIT: sys.exit()
 
     screen.fill(WHITE)
@@ -23,7 +23,7 @@ while True:
     screen.blit(disclaimertext, (5, 580))
 
     for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 steps -= 1
             if event.key == pygame.K_RIGHT:
@@ -32,9 +32,9 @@ while True:
                 steps -= 1
             if event.key == pygame.K_DOWN:
                 steps -= 1
-                break
+
 
     text = myfont.render("steps {0}".format(steps), 0, (0,0,0))
     screen.blit(text, (700, 0))
-    steps -= 1
+
 
