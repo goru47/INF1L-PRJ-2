@@ -210,10 +210,13 @@ class Menu(States):
         States.__init__(self)
         self.next = 'game'
         self.screen = pg.display.set_mode((1024, 768))
+        music_menu("intro.mp3", 44100, -16 ,2, 4096)
+
     def cleanup(self):
         print('cleaning up Menu state')
 
     def startup(self):
+        music_menu("intro.mp3", 44100, -16 ,2, 4096)
         print('starting Menu state')
 
     def button(self, naam1, naam2, x, y, w, h):
@@ -229,9 +232,9 @@ class Menu(States):
 
     def how_to_play(self):
         self.htp = True
+        music_click("help.mp3", 44100, -16 ,2, 4096)
         while self.htp:
             self.screen.blit(htpbg_image, (0, 0))
-
             self.button(htphelp1_image1, start_image2, 140, 100, 150, 50)
             self.button(htphelp2_image1, start_image2, 140, 160, 150, 50)
             self.button(htphelp3_image1, start_image2, 140, 220, 150, 50)
@@ -462,6 +465,7 @@ class Menu(States):
     def get_event(self, event):
         mouse = pg.mouse.get_pos()
         if event.type == pg.MOUSEBUTTONDOWN:
+            music_click("clickex.wav",44100, 0 ,0, 4096)
             if 768 + 150 > mouse[0] > 768 and 400 + 50 > mouse[1] > 150:
                 self.done = True
             if 768 + 150 > mouse[0] > 768 and 500 + 50 > mouse[1] > 150:
@@ -495,10 +499,12 @@ class Game(States):
         self.TURN = 0
         self.paused = False
         self.screen = pg.display.set_mode((1024, 768))
+
     def cleanup(self):
         print('cleaning up Game state')
 
     def startup(self):
+        music_menu("intro2.mp3", 44100, -16 ,2, 4096)
         print('starting Game state')
 
     def button(self, naam1, naam2, x, y, w, h):
@@ -670,6 +676,8 @@ class Game(States):
                                                  TileHeight])
 
     def how_to_play(self):
+        pg.mixer.music.load("help.mp3")
+        pg.mixer.music.play(0,0.0)
         self.htp = True
         while self.htp:
             self.screen.blit(htpbg_image, (0, 0))
@@ -710,6 +718,9 @@ class Game(States):
 
                     if 437 + 150 > mouse[0] > 437 and 535 + 50 > mouse[1] > 535:
                         self.htp = not self.htp
+                        pg.mixer.music.stop()
+                        pg.mixer.music.load("intro2.mp3")
+                        pg.mixer.music.play(-1,0.0)
 
                 if event.type == pg.QUIT:
                     quit()
@@ -735,10 +746,10 @@ class Game(States):
                         self.gotg = not self.gotg
 
                 if event.type == pg.QUIT:
-                    g.quit()
+                    quit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        g.quit()
+                        quit()
 
     def your_turn(self):
         self.yt = True
