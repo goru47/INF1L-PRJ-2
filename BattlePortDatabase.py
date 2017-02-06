@@ -2,7 +2,7 @@
 import psycopg2
 
 # Connect to database
-connection = psycopg2.connect(database="BattlePort", user="postgres", password="ivo123", host="127.0.0.1", port="5433")
+connection = psycopg2.connect(database="BattlePort", user="postgres", password="lolZard555", host="127.0.0.1", port="5432")
 print ("Opened database successfully")
 
 cursor = connection.cursor()
@@ -15,7 +15,7 @@ def create_table():
 # Data aan de tabel toevoegen
 def data_entry(pid, naam, score):
 
-    connection = psycopg2.connect(database="BattlePort", user="postgres", password="ivo123", host="127.0.0.1", port="5433")
+    connection = psycopg2.connect(database="BattlePort", user="postgres", password="lolZard555", host="127.0.0.1", port="5432")
     cursor = connection.cursor()
     cursor.execute("insert into scores values(%s, %s, %s);", (pid, naam, score))
     connection.commit()
@@ -44,9 +44,18 @@ def read_database(zoekopdracht):
         print(row)
 
 
-#create_table()
+create_table()
+
+cursor.execute("select * FROM scores;")
 
 
+#cursor.execute("SELECT count(pid) FROM scores")
+#user_amount = cursor.fetchone()
+#print(user_amount[0])
+#username = input("please input your name")
+#userid = user_amount[0] + 1
+#score = int(input("input score please"))
+#data_entry(userid,username,score)
 #data_entry(730, 'jan', 304)
 #data_entry(675, 'guus', 5677)
 
@@ -74,13 +83,13 @@ def delete(pid, naam, score):
 #download_top_score()
 
 
-cursor.execute("delete from scores * where score = 0;")
-
+#cursor.execute("delete from scores * where score = 0;")
+#cursor.execute("DELETE FROM scores *;")
 #cursor.execute("DELETE from scores where pid = 830;")
-connection.commit
+connection.commit()
 
 
 
-download_top_score()
-kweerie("SELECT * FROM scores where naam = 'Default'")
-#dfatabase = cursor.execute("DELETE FROM scores WHERE score = 0;")
+#download_top_score()
+#kweerie("SELECT * FROM scores where naam = 'Default'")
+

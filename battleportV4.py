@@ -1,8 +1,10 @@
 import sys
 import random
+import psycopg2
 from settingsV4 import *
 from endplayer1won import *
 from endplayer2won import *
+from BattlePortDatabase import *
 import pygame as pg
 
 MapSize = 20                                  #how many tiles in either direction of grid
@@ -82,30 +84,47 @@ class Character(object):                    #Characters can move around and do c
         return False
 
     def Attack(self):
-        for r in range(1, self.Attack_range + 1):
-            for i in range(0, len(Map.Grid[self.Column][self.Row - r])):
-                if Map.Grid[self.Column][self.Row - r][i].__class__.__name__ == "Character":
-                    Map.Grid[self.Column][self.Row - r][i].HP -= self.Damage
-                    print(str(self.Damage) + " damage ")
-        for r in range(1, self.Attack_range + 1):
-            for i in range(0, len(Map.Grid[self.Column + r][self.Row])):
-                if Map.Grid[self.Column + r][self.Row][i].__class__.__name__ == "Character":
-                    Map.Grid[self.Column + r][self.Row][i].HP -= self.Damage
-                    print(str(self.Damage) + " damage")
-        for r in range(1, self.Attack_range + 1):
-            for i in range(0, len(Map.Grid[self.Column - r][self.Row])):
-                if Map.Grid[self.Column - r][self.Row][i].__class__.__name__ == "Character":
-                    Map.Grid[self.Column - r][self.Row][i].HP -= self.Damage
-                    print(str(self.Damage) + " damage")
-        for r in range(1, self.Attack_range + 1):
-            for i in range(0, len(Map.Grid[self.Column][self.Row + r])):
-                if Map.Grid[self.Column][self.Row + r][i].__class__.__name__ == "Character":
-                    Map.Grid[self.Column][self.Row + r][i].HP -= self.Damage
-                    print(str(self.Damage) + " damage")
+        try:
+            for r in range(1, self.Attack_range + 1):
+                for i in range(0, len(Map.Grid[self.Column][self.Row - r])):
+                    if Map.Grid[self.Column][self.Row - r][i].__class__.__name__ == "Character":
+                        Map.Grid[self.Column][self.Row - r][i].HP -= self.Damage
+                        print(str(self.Damage) + " damage ")
+        except IndexError:
+            pass
+        try:
+            for r in range(1, self.Attack_range + 1):
+                for i in range(0, len(Map.Grid[self.Column + r][self.Row])):
+                    if Map.Grid[self.Column + r][self.Row][i].__class__.__name__ == "Character":
+                        Map.Grid[self.Column + r][self.Row][i].HP -= self.Damage
+                        print(str(self.Damage) + " damage")
+        except IndexError:
+            pass
+        try:
+            for r in range(1, self.Attack_range + 1):
+                    for i in range(0, len(Map.Grid[self.Column - r][self.Row])):
+                        if Map.Grid[self.Column - r][self.Row][i].__class__.__name__ == "Character":
+                            Map.Grid[self.Column - r][self.Row][i].HP -= self.Damage
+                            print(str(self.Damage) + " damage")
+        except IndexError:
+            pass
+        try:
+            for r in range(1, self.Attack_range + 1):
+                for i in range(0, len(Map.Grid[self.Column][self.Row + r])):
+                    if Map.Grid[self.Column][self.Row + r][i].__class__.__name__ == "Character":
+                        Map.Grid[self.Column][self.Row + r][i].HP -= self.Damage
+                        print(str(self.Damage) + " damage")
+        except IndexError:
+            pass
 
     def Location(self):
         print("Coordinates: " + str(self.Column) + ", " + str(self.Row))
 
+def add_score():
+        spelernaam = str(input("inpput the winner's name"))
+        cursor.execute("UPDATE scores SET Score= Score + 1 WHERE Naam= '"+spelernaam+"'")
+
+        connection.commit()
 
 class Map(object):              #The main class; where the action happens
     global MapSize
@@ -197,38 +216,43 @@ class Map(object):              #The main class; where the action happens
                                     player1 -= 1
                                     if player1 == 0:
                                         player1 == 3
+                                        add_score()
                                         player_2_win()
                             if Map.Grid[column][row][i].Name == "Ship2":
                                 if player1 > 0:
                                     player1 -= 1
                                     if player1 == 0:
                                         player1 == 3
+                                        add_score()
                                         player_2_win()
                             if Map.Grid[column][row][i].Name == "Ship3":
                                 if player1 > 0:
                                     player1 -= 1
                                     if player1 == 0:
                                         player1 == 3
+                                        add_score()
                                         player_2_win()
                             if Map.Grid[column][row][i].Name == "Enemy":
                                 if player2 > 0:
                                     player2 -= 1
                                     if player2 == 0:
                                         player2 == 3
+                                        add_score()
                                         player_1_win()
                             if Map.Grid[column][row][i].Name == "Enemy2":
                                 if player2 > 0:
                                     player2 -= 1
                                     if player2 == 0:
                                         player2 == 3
+                                        add_score()
                                         player_1_win()
                             if Map.Grid[column][row][i].Name == "Enemy3":
                                 if player2 > 0:
                                     player2 -= 1
                                     if player2 == 0:
                                         player2 == 3
+                                        add_score()
                                         player_1_win()
-
                             Map.Grid[column][row].remove(Map.Grid[column][row][i])
                             # print("Character died")
 
@@ -249,7 +273,6 @@ class Menu(States):
         self.next = 'game'
         self.screen = pg.display.set_mode((1024, 768))
 
-
         music_menu("intro.ogg", 44100, -16, 2, 4096)
 
 
@@ -263,8 +286,6 @@ class Menu(States):
 
 
         music_menu("intro.ogg", 44100, -16 , 2, 4096)
-
-
         music_menu("intro.mp3", 44100, -16 ,2, 4096)
 
 
@@ -280,6 +301,60 @@ class Menu(States):
             self.screen.blit(naam2, (x, y))
         else:
             self.screen.blit(naam1, (x, y))
+
+    def add_player(self):
+        cursor.execute("SELECT count(pid) FROM scores")
+        user_amount = cursor.fetchone()
+        print(user_amount[0])
+        username = input("please input your name")
+        userid = user_amount[0] + 1
+        score = int(input("input score please"))
+        data_entry(userid,username,score)
+
+    def add_score(self):
+        spelernaam = str(input("inxput the winner's name"))
+        cursor.execute("UPDATE scores SET Score= Score + 1 WHERE Naam= '"+spelernaam+"'")
+
+        connection.commit()
+
+
+    def scores(self):
+        self.scorescreen = True
+        connection = psycopg2.connect(database="BattlePort", user="postgres", password="lolZard555", host="127.0.0.1", port="5432")
+        create_table()
+
+
+
+        music_click("help.ogg", 44100, -16 ,2, 4096)
+        music_click("help.mp3", 44100, -16 ,2, 4096)
+
+
+        while self.scorescreen:
+            self.screen.blit(htpbg_image, (0, 0))
+            self.screen.blit(scoremsg,(90,70))
+            self.screen.blit(addplayer,(412,508))
+            self.screen.blit(higscore,(162,508))
+            self.screen.blit(delscore,(662,508))
+            pg.display.update()
+
+            mouse = pg.mouse.get_pos()
+
+            for event in pg.event.get():
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    print(mouse)
+                    if 412 + 200 > mouse[0] > 412 and 508 + 108 > mouse[1] > 508:
+                        self.add_player()
+                    if 162 + 200 > mouse[0] > 162 and 508 + 108 > mouse[1] > 508:
+                        kweerie("select * from scores order by Score DESC")
+                    if 662 + 200 > mouse[0] > 162 and 508 + 108 > mouse[1] > 508:
+                        cursor.execute("delete from scores")
+                        connection.commit
+                if event.type == pg.QUIT:
+                    quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        quit()
+
 
     def how_to_play(self):
         self.htp = True
@@ -330,6 +405,8 @@ class Menu(States):
                 if event.type == pg.QUIT:
                     quit()
                 if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_r:
+                        set_players()
                     if event.key == pg.K_ESCAPE:
                         quit()
 
@@ -525,12 +602,12 @@ class Menu(States):
 
             music_click("clickex.wav",44100, 0 ,0, 4096)
 
-            if 768 + 150 > mouse[0] > 768 and 400 + 50 > mouse[1] > 150:
+            if 768 + 150 > mouse[0] > 768 and 400 + 50 > mouse[1] > 400:
                 self.done = True
-            if 768 + 150 > mouse[0] > 768 and 500 + 50 > mouse[1] > 150:
-                pass
-            if 768 + 150 > mouse[0] > 768 and 450 + 50 > mouse[1] > 150:
-                pass# self.how_to_play()
+            if 768 + 150 > mouse[0] > 768 and 500 + 50 > mouse[1] > 500:
+                self.scores()
+            if 768 + 150 > mouse[0] > 768 and 450 + 50 > mouse[1] > 450:
+                self.how_to_play()
         if event.type == pg.QUIT:
             self.done = True
         if event.type == pg.KEYDOWN:
@@ -606,8 +683,10 @@ class Game(States):
                 self.done = True
             if event.key == 122:        # z
                 player_1_win()
+                Menu.add_score()
             if event.key == 120:        # x
                 player_2_win()
+                Menu.add_score()
 
             if self.TURN % 6 == 0:
                 if event.key == pg.K_LEFT:
@@ -635,7 +714,7 @@ class Game(States):
                     Map.Enemy.Move("DOWN")
                 if event.key == 9:
                     self.TURN += 1
-                    Map.Ship2.Movement = 4
+                    Map.Ship2.Movement = 99
                 if event.key == 32:
                     Map.Enemy.Attack()
 
@@ -713,7 +792,6 @@ class Game(States):
 
     def draw(self, screen):
         screen.fill(BLACK)
-
         for Row in range(MapSize):  # Drawing grid
             for Column in range(MapSize):
                 for i in range(0, len(Map.Grid[Column][Row])):
